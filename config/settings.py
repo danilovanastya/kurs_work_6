@@ -85,14 +85,18 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
+BD_USER = os.getenv('BD_USER')
+BD_NAME = os.getenv('BD_NAME')
+BD_PORT = os.getenv('BD_PORT')
+BD_PASSWORD = os.getenv('BD_PASSWORD')
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'mailing_database',
-        'USER': 'postgres',
-        'PORT': '5433',
-        'PASSWORD': '5252887',
+        'NAME': f'{BD_NAME}',
+        'USER': f'{BD_USER}',
+        'PORT': f'{BD_PORT}',
+        'PASSWORD': f'{BD_PASSWORD}',
     }
 }
 
