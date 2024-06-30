@@ -1,24 +1,22 @@
 from django.db import models
 from mailing.models import Mailing
+from users.models import User, NULLABLE
 
-NULLABLE = {'blank': True, 'null': True }
 
-
-# Create your models here.
 class Client(models.Model):
-    """
-    Модель Клиента
-    """
-    name = models.CharField(max_length=50, verbose_name='Имя')
-    lastname = models.CharField(max_length=50, verbose_name='Фамилия')
-    birthday = models.DateField(verbose_name='Дата рождения', **NULLABLE)
-    email = models.EmailField(max_length=50, verbose_name='Email')
-    comment = models.CharField(max_length=300, verbose_name='Комментарий', **NULLABLE)
-    mailing = models.ForeignKey(Mailing, on_delete=models.CASCADE, verbose_name='ID Статьи')
+    """Класс для описания клиента"""
+    first_name = models.CharField(max_length=100, verbose_name='имя')
+    last_name = models.CharField(max_length=100, verbose_name='фамилия')
+    second_name = models.CharField(max_length=100, verbose_name='отчество')
+    email = models.EmailField()
+    comment = models.TextField(**NULLABLE)
+    user = models.ForeignKey(User, verbose_name='пользователь', on_delete=models.CASCADE, **NULLABLE)
+
+    is_active = models.BooleanField(default=True, **NULLABLE)
 
     def __str__(self):
-        return f'{self.name} {self.lastname}'
+        return f"{self.last_name} {self.first_name} {self.second_name}"
 
     class Meta:
-        verbose_name = 'Клиент'
-        verbose_name_plural = 'Клиенты'
+        verbose_name = 'клиент'
+        verbose_name_plural = 'клиенты'

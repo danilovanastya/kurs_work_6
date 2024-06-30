@@ -1,25 +1,26 @@
-{% extends 'main/base.html' %}
-
+{% extends 'mailing/base.html'%}
 {% block content %}
-<div class="container mt-5 mb-5">
-    <div class="row">
-        <div class="col-3"></div>
-        <div class="col-6">
-            <div class="card">
-                <div class="card-header"></div>
-                <div class="card-body">
-                    <form method="post">
+<div class="col-12">
+    <form method="post" enctype="multipart/form-data">
+        <div class="row">
+            <div class="col-3"></div>
+            <div class="col-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            Регистрация
+                        </h3>
+                    </div>
+                    <div class="card-body">
                         {% csrf_token %}
                         {{ form.as_p }}
-                        <input type="submit" value="Registration">
-                    </form>
+                        <button type="submit" class="btn btn-success">
+                            Зарегистрировать
+                        </button>
+                    </div>
                 </div>
-                <div class="card-footer"></div>
             </div>
-
         </div>
-
-    </div>
+    </form>
 </div>
-
 {% endblock %}

@@ -1,14 +1,19 @@
+from django.conf import settings
+from django.conf.urls.static import static
 from django.urls import path
-from mailing.views import MailingCreateView, MailingDetailView, MailingUpdateView, MailingDeleteView, MailingListView, mailing_go, mailing_finish, mailing_again, mailing_change_status
+from mailing.apps import MailingConfig
+from mailing.views import contact, MailingListView, MailingDetailView, MailingCreateView, \
+    MailingUpdateView, MailingDeleteView, main
+
+
+app_name = MailingConfig.name
 
 urlpatterns = [
-    path('mailing_form/', MailingCreateView.as_view(), name='mailing_form'),
-    path('mailing_info/<int:pk>', MailingDetailView.as_view(), name='mailing_info'),
-    path('mailing_form/<int:pk>', MailingUpdateView.as_view(), name='mailing_update'),
-    path('mailing_delete/<int:pk>', MailingDeleteView.as_view(), name='mailing_delete'),
-    path('mailing_list', MailingListView.as_view(), name='mailing_list'),
-    path('mailing_go/<int:pk>', mailing_go, name='mailing_go'),
-    path('mailing_finish/<int:pk>', mailing_finish, name='mailing_finish'),
-    path('mailing_again/<int:pk>', mailing_again, name="mailing_again"),
-    path('mailing_change_status/<int:pk>', mailing_change_status, name='mailing_change_status'),
-]
+    path('', main, name='main'),
+    path('contact/', contact, name='contact'),
+    path('list/', MailingListView.as_view(), name='list'),
+    path('view/<int:pk>', MailingDetailView.as_view(), name='view_mailing'),
+    path('create/', MailingCreateView.as_view(), name='create'),
+    path('edit/<int:pk>', MailingUpdateView.as_view(), name='edit'),
+    path('delete/<int:pk>', MailingDeleteView.as_view(), name='delete'),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
